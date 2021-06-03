@@ -11,11 +11,12 @@ const useFlip = () => {
   return [state, toggle];
 };
 //-----------------------------------------
-const useAxios = (baseURL) => {
+const useAxios = (baseURL, formatData) => {
   const [objArray, setObjArray] = useState([]);
   async function addObj(urlTail = "") {
     const response = await axios.get(baseURL + urlTail);
-    setObjArray((objs) => [...objs, { ...response.data, id: uuid() }]);
+    const newData = formatData(response);
+    setObjArray((objs) => [...objs, { ...newData, id: uuid() }]);
   }
   const reset = () => {
     setObjArray([]);

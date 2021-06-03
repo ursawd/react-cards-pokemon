@@ -2,6 +2,7 @@ import React from "react";
 import PlayingCard from "./PlayingCard";
 import "./PlayingCardList.css";
 import { useAxios } from "./hooks";
+import { formatCard } from "./helpers";
 
 /* Renders a list of playing cards.
  * Can also add a new card at random. */
@@ -18,7 +19,8 @@ function CardTable() {
   // };
   //
   const [cards, addCard, reset] = useAxios(
-    "https://deckofcardsapi.com/api/deck/new/draw/"
+    "https://deckofcardsapi.com/api/deck/new/draw/",
+    formatCard
   );
   //
   //------------------------------------------
@@ -31,7 +33,7 @@ function CardTable() {
       </div>
       <div className="PlayingCardList-card-area">
         {cards.map((cardData) => (
-          <PlayingCard key={cardData.id} front={cardData.cards[0].image} />
+          <PlayingCard key={cardData.id} front={cardData.image} />
         ))}
       </div>
     </div>
